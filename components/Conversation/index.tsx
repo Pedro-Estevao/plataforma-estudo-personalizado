@@ -1,6 +1,6 @@
 import { useAppContext } from "@/contexts/appContext";
 import interactionGemini, { TeacherPersonality } from "@/lib/geminiClient";
-import { GenerateContentResult } from "@google/generative-ai";
+import { EnhancedGenerateContentResponse, GenerateContentResult } from "@google/generative-ai";
 import Image from "next/image";
 import { useEffect, useRef, useState } from 'react';
 
@@ -8,29 +8,27 @@ const Conversation = () => {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const { personality } = useAppContext();
     const [message, setMessage] = useState<string>('');
-    const [resultG, setResultG] = useState<string>();
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
 
     const handleSendMessage = async () => {
-        if (!message) return; // Check if there's a message to send
+        if (!message) return;
 
         try {
             const response = await interactionGemini(message, personality as TeacherPersonality);
-            // Update the conversation UI with the response
-            // setResultG(response());
-            updateConversation(response()); // Replace `console.log(response)` with this line
+            updateConversation(response);
         } catch (error) {
-            console.error(error); // Handle any errors
+            console.error(error);
         } finally {
-            setMessage(''); // Clear the input field after sending
-            // console.log(resultG);
+            setMessage('');
         }
     };
 
-    const updateConversation = (response: string) => {
+    const updateConversation = (response: EnhancedGenerateContentResponse) => {
+        console.log(response);
+        
         const messages = document.getElementById('messages');
         if (!messages) return;
 
@@ -38,7 +36,7 @@ const Conversation = () => {
         message.className = 'message';
         message.innerHTML = `
             <div class="top">Você - ${new Date().toLocaleTimeString()}</div>
-            <div class="body">${response}</div>
+            <div class="body">${response.text}</div>
         `;
 
         messages.appendChild(message);

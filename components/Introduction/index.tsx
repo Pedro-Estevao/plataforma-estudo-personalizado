@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Radio, RadioGroup } from "@nextui-org/radio";
 import { cn } from "@nextui-org/system";
 import { Code } from "@nextui-org/code";
+import { TeacherPersonality } from "@/lib/geminiClient";
 
 const pageVariants = (durationStart: number, durationEnd?: number) => ({
     initial: {
@@ -69,30 +70,12 @@ const CustomRadio = (props: any) => {
     )
 }
 
-type TeacherPersonality = "Formal" | "Informal" | "Engraçado" | "Sério" | "Default";
-
 const Introduction = () => {
     const { introduction, setIntroduction, userName, setUserName, personality, setPersonality, studyMaterial, setStudyMaterial } = useAppContext();
     const [page, setPage] = useState<number>(introduction.actPage);
     const page1El = useRef(null);
     const page2El = useRef(null);
     const page3El = useRef(null);
-
-
-    const getInstructions = (personality: TeacherPersonality) => {
-        switch (personality) {
-            case "Formal":
-                return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. Você é um professor formal e educado.";
-            case "Informal":
-                return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. Você é um professor amigável e descontraído.";
-            case "Engraçado":
-                return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. Você é um professor divertido e bem-humorado.";
-            case "Sério":
-                return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. Você é um professor sério e direto ao ponto.";
-            default:
-                return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. É atencioso, paciente e possui uma didática incrível. Sabe ser amigável, descontraído, divertido e bem-humorado, mas também sabe ser sério e direto ao ponto quando necessário. É um professor completo, que consegue se adaptar a qualquer situação e público, sempre com o objetivo de ensinar e ajudar o próximo a aprender e evoluir.";
-        }
-    };
 
     return (
         <div className={`fixed top-0 left-0 right-0 bottom-0 h-[100lvh] w-[100lvw] flex flex-col items-center justify-between gap-12 overflow-y-auto p-10 z-[999] max-sm:px-3`}>

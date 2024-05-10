@@ -1,5 +1,6 @@
 'use client';
 
+import { TeacherPersonality } from "@/lib/geminiClient";
 import React, { createContext, useState, ReactNode, useContext, useEffect, Dispatch, SetStateAction } from 'react';
 
 type PageType = {
@@ -47,8 +48,8 @@ const AppContext = createContext({
     setIntroduction: (() => {}) as SetIntroductionType,
     userName: '',
     setUserName: (userName: string) => {},
-    personality: '',
-    setPersonality: (personality: string) => {},
+    personality: '' as TeacherPersonality,
+    setPersonality: (personality: TeacherPersonality) => {},
     studyMaterial: '',
     setStudyMaterial: (studyMaterial: string) => {},
 });
@@ -62,7 +63,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         const localData = localStorage.getItem('userName');
         return localData ? JSON.parse(localData) : '';
     });
-    const [personality, setPersonality] = useState<string>(() => {
+    const [personality, setPersonality] = useState<TeacherPersonality>(() => {
         const localData = localStorage.getItem('personality');
         return localData ? JSON.parse(localData) : '';
     });

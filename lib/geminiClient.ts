@@ -1,4 +1,4 @@
-// 'use server';
+'use server';
 
 import {
     GoogleGenerativeAI,
@@ -6,7 +6,7 @@ import {
     HarmBlockThreshold
 } from "@google/generative-ai";
 
-export type TeacherPersonality = "Formal" | "Informal" | "Engraçado" | "Sério" | "Default";
+export type TeacherPersonality = "Formal" | "Informal" | "Engraçado" | "Sério";
 
 const getInstructions = (personality: TeacherPersonality) => {
     switch (personality) {
@@ -69,8 +69,8 @@ const geminiClient = (personality: TeacherPersonality) => {
 };
 
 const interactionGemini = async (message: string, personality: TeacherPersonality) => {
-    const response = await geminiClient(personality).sendMessage(message);
-    return response.response.text;
+    const result = await geminiClient(personality).sendMessage(message);
+    return result.response;
 };
 
 export default interactionGemini;
