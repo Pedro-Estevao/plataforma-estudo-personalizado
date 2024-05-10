@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.transition-introduction {
+    transition: background-color 2s ease-in-out;
+}
+
+.userName {
+    background: linear-gradient(to top, #94bdfe, #086dff);
+    font-weight: 700;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.introLoading {
+    background-color: #94bdfe;
+    font-weight: 700;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: intro-loading 2s infinite ease;
+}
+
+.loader {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border: 4px solid #076dff;
+    border-radius: 8px;
+    animation: loader 2s infinite ease;
+}
+
+.loader-inner {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    background-color: #076dff;
+    animation: loader-inner 2s infinite ease;
+}
+
+/*  */
+#app {
+    padding: 2.4rem 3.2rem;
+  
+    height: 100vh;
+    width: 100vw;
+    max-width: 880px;
+  
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    margin: auto;
+  }
+  
+  #top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  #user-info {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  
+  #user-info img {
+    width: 4.8rem;
+    height: 4.8rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  #user-status .status {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  
+    margin-top: 0.4rem;
+  }
+  
+  #user-status .status::before {
+    content: "";
+    width: 0.8rem;
+    height: 0.8rem;
+    display: block;
+    background-color: #00b37e;
+    border-radius: 50%;
+  }
+  
+  #user-status .status {
+    color: #00b37e;
+    font-size: 1.2rem;
+  }
+  
+  #last-seen {
+    margin-top: 2.6rem;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    text-align: center;
+  }
+  
+  #messages {
+    overflow-y: scroll;
+    padding-bottom: 2.4rem;
+  }
+  
+  #messages::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .messages {
+    margin-top: 3rem;
+    display: grid;
+    gap: 3rem;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
+  
+  .message .body {
+    width: fit-content;
+    margin-top: 1rem;
+    background-color: #633bbc;
+    padding: 1.4rem;
+    border-radius: 0 0.8rem 0.8rem 0.8rem;
+  }
+  
+  .message:not(.you) {
+    width: 40vw;
+  }
+  
+  .message.you {
+    margin-left: auto;
+  }
+  
+  .message.you .top {
+    text-align: right;
+  }
+  
+  .message.you .body {
+    background-color: #07847e;
+    border-radius: 0.8rem 0.8rem 0 0.8rem;
+  }
+  
+  div#bottom {
+    display: flex;
+    align-items: center;
+    background: #282843;
+    border-radius: 999rem;
+    padding: 1.4rem 2.4rem;
+  }
+  
+  input {
+    flex: 1;
+    outline: none;
+    color: #e1e1e6;
+  }
+  
+  div#bottom:focus-within {
+    outline: 2px solid white;
+  }
+  
+  input::placeholder {
+    color: #e1e1e6;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
+  
+  button i {
+    color: #e1e1e6;
+    font-size: 2.4rem;
+  }
+  
+  input,
+  button {
+    background-color: transparent;
+    border: 0;
+  }
+/*  */
+
+@keyframes intro-loading {
+    0% {
+        background-color: #076dff;
+    }
+
+    25% {
+        background-color: #94bdfe;
+    }
+
+    50% {
+        background-color: #94bdfe;
+    }
+
+    75% {
+        background-color: #076dff;
+    }
+
+    100% {
+        background-color: #076dff;
+    }
+}
+
+@keyframes loader {
+    0% {
+        border-color: #076dff;
+        transform: rotate(0deg);
+    }
+
+    25% {
+        border-color: #92bcfd;
+        transform: rotate(180deg);
+    }
+
+    50% {
+        border-color: #92bcfd;
+        transform: rotate(180deg);
+    }
+
+    75% {
+        border-color: #076dff;
+        transform: rotate(360deg);
+    }
+
+    100% {
+        border-color: #076dff;
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loader-inner {
+    0% {
+        background-color: #076dff;
+        height: 0%;
+    }
+
+    25% {
+        background-color: #92bcfd;
+        height: 0%;
+    }
+
+    50% {
+        background-color: #92bcfd;
+        height: 100%;
+    }
+
+    75% {
+        background-color: #076dff;
+        height: 100%;
+    }
+
+    100% {
+        background-color: #076dff;
+        height: 0%;
+    }
+}
