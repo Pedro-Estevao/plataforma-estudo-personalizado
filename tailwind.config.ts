@@ -9,7 +9,15 @@ const config: Config = {
 		'./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
 	],
 	theme: {
-		extend: {},
+		extend: {
+			boxShadow: {
+				'navbar': '0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(0,0,0,0.05)',
+				'navbar-dark': '0 0 #0000',
+			},
+			flex: {
+				'um': '1 1 0%',
+			},
+		},
 		screens: {
 			xs: '375px',
 			sm: '576px',

@@ -1,37 +1,7 @@
 'use client';
 
-import React, { createContext, useState, ReactNode, useContext, useEffect, Dispatch, SetStateAction } from 'react';
-
-type PageType = {
-    input: boolean;
-    button: boolean;
-    visited: boolean;
-};
-
-type PagesType = {
-    [key: string]: PageType;
-};
-
-type IntroductionType = {
-    show: boolean;
-    isLoading: boolean;
-    actPage: number;
-    pages: PagesType;
-};
-
-type SetIntroductionType = Dispatch<SetStateAction<IntroductionType>>;
-
-type ChatHistoryType = {
-    role: 'user' | 'model';
-    parts: string[];
-};  
-
-type ModuleType = {
-    title: string;
-    html: string;
-    isOpen: boolean;
-    chatHistory: ChatHistoryType[];
-};
+import { ChatHistoryType, IntroductionType, ModuleType, PagesType, SetIntroductionType, SetSidebarType, SidebarType } from "@/@types/appContext";
+import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
 
 const AppContext = createContext({
     introduction: {
@@ -63,8 +33,14 @@ const AppContext = createContext({
     setPersonality: (personality: TeacherPersonality) => {},
     studyMaterial: '',
     setStudyMaterial: (studyMaterial: string) => {},
+    generationHistory: [] as ChatHistoryType[],
+    setGenerationHistory: (generationHistory: ChatHistoryType[]) => {},
     modulos: [] as ModuleType[],
     setModulos: (modulos: ModuleType[]) => {},
+    sidebar: {
+        expanded: false,
+    },
+    setSidebar: (() => {}) as SetSidebarType,
 });
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
@@ -84,9 +60,17 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         const localData = localStorage.getItem('studyMaterial');
         return localData ? JSON.parse(localData) : '';
     });
+    const [generationHistory, setGenerationHistory] = useState<ChatHistoryType[]>(() => {
+        const localData = localStorage.getItem('generationHistory');
+        return localData ? JSON.parse(localData) : [];
+    });
     const [modulos, setModulos] = useState<ModuleType[]>(() => {
         const localData = localStorage.getItem('modulos');
         return localData ? JSON.parse(localData) : [];
+    });
+    const [sidebar, setSidebar] = useState<SidebarType>(() => {
+        const localData = localStorage.getItem('sidebar');
+        return localData ? JSON.parse(localData) : { expanded: false };
     });
 
     useEffect(() => {
@@ -106,8 +90,16 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
     }, [studyMaterial]);
 
     useEffect(() => {
+        localStorage.setItem('generationHistory', JSON.stringify(generationHistory));
+    }, [generationHistory]);
+
+    useEffect(() => {
         localStorage.setItem('modulos', JSON.stringify(modulos));
     }, [modulos]);
+
+    useEffect(() => {
+        localStorage.setItem('sidebar', JSON.stringify(sidebar));
+    }, [sidebar]);
     
     return (
         <AppContext.Provider 
@@ -120,8 +112,12 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
                 setPersonality,
                 studyMaterial,
                 setStudyMaterial,
+                generationHistory,
+                setGenerationHistory,
                 modulos,
                 setModulos,
+                sidebar,
+                setSidebar,
             }}
         >
             {children}

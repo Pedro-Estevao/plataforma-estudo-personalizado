@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Origens e Ascensão do Egito",
+    "description": "Abordaremos a formação da civilização egípcia, o período pré-dinástico, a unificação do Alto e Baixo Egito e o estabelecimento das primeiras dinastias."
+  },
+  {
+    "title": "Reino Antigo: Pirâmides e Poder",
+    "description": "Analisaremos o período de grande prosperidade e construção de pirâmides, o papel do faraó como líder divino e os avanços em áreas como a escrita e a matemática."
+  },
+  {
+    "title": "Reino Médio: Expansão e Crise",
+    "description": "Estudaremos a expansão territorial do Egito, o desenvolvimento da arte e literatura, e as crises internas e invasões que marcaram o fim deste período."
+  },
+  {
+    "title": "Reino Novo: Império e Mudanças",
+    "description": "Abordaremos o apogeu do poder egípcio, a formação de um império, faraós famosos como Akhenaton e Tutancâmon, e os desafios enfrentados por este império."
+  },
+  {
+    "title": "Declínio e Influência Duradoura",
+    "description": "Analisaremos o declínio do Egito frente a novas potências, a conquista romana e como a cultura egípcia influenciou o mundo, até os dias de hoje." 
+  },
+  {
+    "title": "Tesouros e Mistérios do Egito",
+    "description": "Exploraremos a arte, arquitetura, religião e vida cotidiana no Egito, com foco em tumbas, hieróglifos, deuses como Anúbis e os mistérios que ainda cercam essa civilização."
+  }
+]
+
+```json
+{
+  "planoEstudo": [
+    {
+      "title": "Descobrimento e Colonização (1500-1822)",
+      "description": "Abordaremos a chegada dos portugueses ao Brasil, a exploração do Pau-Brasil, a implementação das capitanias hereditárias, a escravidão, o ciclo do açúcar, as invasões estrangeiras e os movimentos nativistas que culminaram na Independência."
+    },
+    {
+      "title": "Brasil Império (1822-1889)",
+      "description": "Analisaremos o Primeiro Reinado, o Período Regencial, o Segundo Reinado, as crises e conflitos do período, a Guerra do Paraguai, o desenvolvimento econômico e social, a ascensão do movimento republicano e a abolição da escravidão."
+    },
+    {
+      "title": "República Velha (1889-1930)",
+      "description": "Estudaremos a consolidação da República, a política do café com leite, a industrialização, a urbanização, as revoltas sociais como Canudos e Contestado, a Semana de Arte Moderna de 1922 e a crise que levou ao fim da República Velha."
+    },
+    {
+      "title": "Era Vargas (1930-1945)",
+      "description": "Abordaremos a Revolução de 1930, a Era Vargas com seus diferentes períodos (Governo Provisório, Constitucionalista e Estado Novo), as políticas implementadas, a participação do Brasil na Segunda Guerra Mundial e a queda de Vargas." 
+    },
+    {
+      "title": "Democracia e Ditadura (1945-1985)",
+      "description": "Analisaremos o período democrático após Vargas, o Golpe Militar de 1964, os governos militares, o Milagre Econômico, a repressão política, os movimentos de resistência e o processo de redemocratização."
+    },
+    {
+      "title": "Nova República (1985-Presente)",
+      "description": "Estudaremos a promulgação da Constituição de 1988, os desafios da Nova República, os presidentes eleitos, os planos econômicos, os escândalos políticos, os avanços sociais e os desafios contemporâneos do Brasil."
+    }
+  ]
+}
+``` 
