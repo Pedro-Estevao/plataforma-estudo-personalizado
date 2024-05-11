@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "@nextui-org/link";
 import { Snippet } from "@nextui-org/snippet";
 import { Code } from "@nextui-org/code"
@@ -14,6 +14,7 @@ import { Navbar } from "@/components/Navbar";
 import IntroductionLoading from "@/components/IntroductionLoading";
 import { AnimatePresence, motion } from "framer-motion";
 import Conversation from "@/components/Conversation";
+import StudyPlatform from "@/components/StudyPlatform";
 
 const pageVariants = (durationStart: number, durationEnd?: number) => ({
     initial: {
@@ -45,6 +46,12 @@ const pageTransition = (duration: number) => ({
 const Home = () => {
 	const { introduction } = useAppContext();
 
+	useEffect(() => {
+		if (!introduction.show && introduction.isLoading) {
+			
+		}
+	}, [introduction.show, introduction.isLoading]);
+
 	return (
 		<div>
 			<AnimatePresence mode='popLayout'>
@@ -56,12 +63,13 @@ const Home = () => {
 						exit="out"
 						variants={pageVariants(2)}
 						transition={pageTransition(2)}
+						className="relative w-full h-full z-[999]"
 					>
 						<Introduction />
 					</motion.div>
 				)}
 
-				{/* {introduction.isLoading && (
+				{introduction.isLoading && (
 					<motion.div
 						key="introduction-loading"
 						initial="initial"
@@ -69,23 +77,24 @@ const Home = () => {
 						exit="out"
 						variants={pageVariants(3)}
 						transition={pageTransition(2)}
+						className="relative z-[998]"
 					>
 						<IntroductionLoading />
 					</motion.div>
-				)} */}
-
-				{!introduction.show && !introduction.isLoading && (
-					<motion.div
-						key="introduction-loading"
-						initial="initial"
-						animate="in"
-						exit="out"
-						variants={pageVariants(3)}
-						transition={pageTransition(2)}
-					>
-						<Conversation />
-					</motion.div>
 				)}
+
+				<motion.div
+					key="study-platform"
+					initial="initial"
+					animate="in"
+					exit="out"
+					variants={pageVariants(3)}
+					transition={pageTransition(2)}
+					className={`relative z-[1] ${introduction.show || introduction.isLoading ? "invisible" : "visible"}`}
+				>
+					{/* <Conversation /> */}
+					<StudyPlatform />
+				</motion.div>
 
 				<div className={`relative ${introduction.show || introduction.isLoading ? "hidden" : "flex"} flex-col h-screen`}>
 					<Navbar />

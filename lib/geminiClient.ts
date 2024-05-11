@@ -1,34 +1,16 @@
-'use server';
-
 import {
     GoogleGenerativeAI,
     HarmCategory,
     HarmBlockThreshold
 } from "@google/generative-ai";
-
-export type TeacherPersonality = "Formal" | "Informal" | "Engraçado" | "Sério";
-
-const getInstructions = (personality: TeacherPersonality) => {
-    switch (personality) {
-        case "Formal":
-            return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. Você é um professor formal e educado.";
-        case "Informal":
-            return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. Você é um professor amigável e descontraído.";
-        case "Engraçado":
-            return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. Você é um professor divertido e bem-humorado.";
-        case "Sério":
-            return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. Você é um professor sério e direto ao ponto.";
-        default:
-            return "Você é o melhor professor do mundo, possui a habilidade de ensinar qualquer coisa de uma maneira simples e direta, de um modo que possa ser compreendido por qualquer pessoa, independentemente do nível de conhecimento ou faixa etária. É atencioso, paciente e possui uma didática incrível. Sabe ser amigável, descontraído, divertido e bem-humorado, mas também sabe ser sério e direto ao ponto quando necessário. É um professor completo, que consegue se adaptar a qualquer situação e público, sempre com o objetivo de ensinar e ajudar o próximo a aprender e evoluir.";
-    }
-};
-
-const MODEL_NAME = "gemini-1.5-pro-latest";
-const API_KEY = "AIzaSyBim7KR6AsgVk4BUvCe4PcsTgBrUWPA1s0";
+import getInstructions from "./getInstructions";
 
 const geminiClient = (personality: TeacherPersonality) => {
-    const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+    const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || '');
+    const model = genAI.getGenerativeModel({ 
+        model: process.env.NEXT_PUBLIC_GEMINI_MODEL || '',
+        systemInstruction: getInstructions(personality),
+    });
 
     const generationConfig = {
         temperature: 1,
@@ -56,11 +38,8 @@ const geminiClient = (personality: TeacherPersonality) => {
         },
     ];
 
-    const systemInstruction = getInstructions(personality);
-
     const chat = model.startChat({
         generationConfig,
-        systemInstruction,
         safetySettings,
         history: [],
     });

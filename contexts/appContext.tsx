@@ -1,6 +1,5 @@
 'use client';
 
-import { TeacherPersonality } from "@/lib/geminiClient";
 import React, { createContext, useState, ReactNode, useContext, useEffect, Dispatch, SetStateAction } from 'react';
 
 type PageType = {
@@ -21,6 +20,18 @@ type IntroductionType = {
 };
 
 type SetIntroductionType = Dispatch<SetStateAction<IntroductionType>>;
+
+type ChatHistoryType = {
+    role: 'user' | 'model';
+    parts: string[];
+};  
+
+type ModuleType = {
+    title: string;
+    html: string;
+    isOpen: boolean;
+    chatHistory: ChatHistoryType[];
+};
 
 const AppContext = createContext({
     introduction: {
@@ -52,6 +63,8 @@ const AppContext = createContext({
     setPersonality: (personality: TeacherPersonality) => {},
     studyMaterial: '',
     setStudyMaterial: (studyMaterial: string) => {},
+    modulos: [] as ModuleType[],
+    setModulos: (modulos: ModuleType[]) => {},
 });
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
@@ -71,6 +84,10 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         const localData = localStorage.getItem('studyMaterial');
         return localData ? JSON.parse(localData) : '';
     });
+    const [modulos, setModulos] = useState<ModuleType[]>(() => {
+        const localData = localStorage.getItem('modulos');
+        return localData ? JSON.parse(localData) : [];
+    });
 
     useEffect(() => {
         localStorage.setItem('introduction', JSON.stringify(introduction));
@@ -87,6 +104,10 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         localStorage.setItem('studyMaterial', JSON.stringify(studyMaterial));
     }, [studyMaterial]);
+
+    useEffect(() => {
+        localStorage.setItem('modulos', JSON.stringify(modulos));
+    }, [modulos]);
     
     return (
         <AppContext.Provider 
@@ -99,6 +120,8 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
                 setPersonality,
                 studyMaterial,
                 setStudyMaterial,
+                modulos,
+                setModulos,
             }}
         >
             {children}

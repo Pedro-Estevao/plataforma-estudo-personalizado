@@ -1,6 +1,8 @@
+'use client';
+
 import { useAppContext } from "@/contexts/appContext";
-import interactionGemini, { TeacherPersonality } from "@/lib/geminiClient";
-import { EnhancedGenerateContentResponse, GenerateContentResult } from "@google/generative-ai";
+import interactionGemini from "@/lib/geminiClient";
+import { EnhancedGenerateContentResponse } from "@google/generative-ai";
 import Image from "next/image";
 import { useEffect, useRef, useState } from 'react';
 
@@ -17,7 +19,7 @@ const Conversation = () => {
         if (!message) return;
 
         try {
-            const response = await interactionGemini(message, personality as TeacherPersonality);
+            const response = await interactionGemini(message, personality);
             updateConversation(response);
         } catch (error) {
             console.error(error);
@@ -45,7 +47,7 @@ const Conversation = () => {
     useEffect(scrollToBottom, []);
 
     return (
-        <div id="app">
+        <div id="app" className="bg-white dark:bg-[#18181c]">
             <div id="top">
                 <div id="user-info">
                     <Image
@@ -92,11 +94,13 @@ const Conversation = () => {
             <div id="bottom">
                 <input
                     type="text"
+                    id="message-input"
                     placeholder="Digite sua mensagem"
                     onChange={(e) => setMessage(e.target.value)}
                 />
                 <button
                     type="button"
+                    id="send-button"
                     onClick={(e) => {
                         e.preventDefault();
 

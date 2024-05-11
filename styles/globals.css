@@ -39,7 +39,7 @@
     animation: loader-inner 2s infinite ease;
 }
 
-/*  */
+/* Chat */
 #app {
     padding: 2.4rem 3.2rem;
   
@@ -50,132 +50,132 @@
     display: grid;
     grid-template-rows: max-content 1fr max-content;
     margin: auto;
-  }
-  
-  #top {
+}
+
+#top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  
-  #user-info {
+}
+
+#user-info {
     display: flex;
     align-items: center;
     gap: 1.6rem;
-  }
-  
-  #user-info img {
+}
+
+#user-info img {
     width: 4.8rem;
     height: 4.8rem;
     object-fit: cover;
     border-radius: 50%;
-  }
-  
-  #user-status .status {
+}
+
+#user-status .status {
     display: flex;
     align-items: baseline;
     gap: 0.4rem;
   
     margin-top: 0.4rem;
-  }
-  
-  #user-status .status::before {
+}
+
+#user-status .status::before {
     content: "";
     width: 0.8rem;
     height: 0.8rem;
     display: block;
     background-color: #00b37e;
     border-radius: 50%;
-  }
-  
-  #user-status .status {
+}
+
+#user-status .status {
     color: #00b37e;
     font-size: 1.2rem;
-  }
-  
-  #last-seen {
+}
+
+#last-seen {
     margin-top: 2.6rem;
     font-size: 1.2rem;
     line-height: 1.4rem;
     text-align: center;
-  }
-  
-  #messages {
+}
+
+#messages {
     overflow-y: scroll;
     padding-bottom: 2.4rem;
-  }
-  
-  #messages::-webkit-scrollbar {
+}
+
+#messages::-webkit-scrollbar {
     display: none;
-  }
-  
-  .messages {
+}
+
+.messages {
     margin-top: 3rem;
     display: grid;
     gap: 3rem;
     font-size: 1.2rem;
     line-height: 1.4rem;
-  }
-  
-  .message .body {
+}
+
+.message .body {
     width: fit-content;
     margin-top: 1rem;
     background-color: #633bbc;
     padding: 1.4rem;
     border-radius: 0 0.8rem 0.8rem 0.8rem;
-  }
-  
-  .message:not(.you) {
+}
+
+.message:not(.you) {
     width: 40vw;
-  }
-  
-  .message.you {
+}
+
+.message.you {
     margin-left: auto;
-  }
-  
-  .message.you .top {
+}
+
+.message.you .top {
     text-align: right;
-  }
-  
-  .message.you .body {
+}
+
+.message.you .body {
     background-color: #07847e;
     border-radius: 0.8rem 0.8rem 0 0.8rem;
-  }
-  
-  div#bottom {
+}
+
+#bottom {
     display: flex;
     align-items: center;
     background: #282843;
     border-radius: 999rem;
     padding: 1.4rem 2.4rem;
-  }
-  
-  input {
+}
+
+#message-input {
     flex: 1;
     outline: none;
     color: #e1e1e6;
-  }
-  
-  div#bottom:focus-within {
+}
+
+#bottom:focus-within {
     outline: 2px solid white;
-  }
-  
-  input::placeholder {
+}
+
+#message-input::placeholder {
     color: #e1e1e6;
     font-size: 1.2rem;
     line-height: 1.4rem;
-  }
-  
-  button i {
+}
+
+#send-button i {
     color: #e1e1e6;
     font-size: 2.4rem;
-  }
-  
-  input,
-  button {
+}
+
+#message-input,
+#send-button {
     background-color: transparent;
     border: 0;
-  }
+}
 /*  */
 
 @keyframes intro-loading {
