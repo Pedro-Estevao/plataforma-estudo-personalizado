@@ -1,6 +1,6 @@
 'use client';
 
-import { ChatHistoryType, IntroductionType, ModuleType, PagesType, SetIntroductionType, SetSidebarType, SidebarType } from "@/@types/appContext";
+import { ChatHistoryType, IntroductionType, ModuleType, PagesType, SetIntroductionType, SetSidebarType, SetStudyPlatformType, SidebarType, StudyPlatformType } from "@/@types/appContext";
 import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
 
 const AppContext = createContext({
@@ -27,6 +27,15 @@ const AppContext = createContext({
         } as PagesType,
     },
     setIntroduction: (() => {}) as SetIntroductionType,
+    studyPlatform: {
+        show: false,
+        isGettingModels: false,
+        isLoading: false,
+        actModule: 0,
+        modulos: [] as ModuleType[],
+        setModulos: (modulos: ModuleType[]) => {},
+    },
+    setStudyPlatform: (() => {}) as SetStudyPlatformType,
     userName: '',
     setUserName: (userName: string) => {},
     personality: '' as TeacherPersonality,
@@ -35,8 +44,6 @@ const AppContext = createContext({
     setStudyMaterial: (studyMaterial: string) => {},
     generationHistory: [] as ChatHistoryType[],
     setGenerationHistory: (generationHistory: ChatHistoryType[]) => {},
-    modulos: [] as ModuleType[],
-    setModulos: (modulos: ModuleType[]) => {},
     sidebar: {
         expanded: false,
     },
@@ -47,6 +54,10 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
     const [introduction, setIntroduction] = useState<IntroductionType>(() => {
         const localData = localStorage.getItem('introduction');
         return localData ? JSON.parse(localData) : { show: true, isLoading: false, actPage: 1, pages: { page1: { input: false, button: false, visited: false }, page2: { input: false, button: false, visited: false }, page3: { input: false, button: false, visited: false } } };
+    });
+    const [studyPlatform, setStudyPlatform] = useState<StudyPlatformType>(() => {
+        const localData = localStorage.getItem('studyPlatform');
+        return localData ? JSON.parse(localData) : { show: false, isGettingModels: false, isLoading: false, actModule: 0, modulos: [], setModulos: (modulos: ModuleType[]) => {} };
     });
     const [userName, setUserName] = useState<string>(() => {
         const localData = localStorage.getItem('userName');
@@ -64,10 +75,10 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         const localData = localStorage.getItem('generationHistory');
         return localData ? JSON.parse(localData) : [];
     });
-    const [modulos, setModulos] = useState<ModuleType[]>(() => {
-        const localData = localStorage.getItem('modulos');
-        return localData ? JSON.parse(localData) : [];
-    });
+    // const [modulos, setModulos] = useState<ModuleType[]>(() => {
+    //     const localData = localStorage.getItem('modulos');
+    //     return localData ? JSON.parse(localData) : [];
+    // });
     const [sidebar, setSidebar] = useState<SidebarType>(() => {
         const localData = localStorage.getItem('sidebar');
         return localData ? JSON.parse(localData) : { expanded: false };
@@ -76,6 +87,10 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         localStorage.setItem('introduction', JSON.stringify(introduction));
     }, [introduction]);
+
+    useEffect(() => {
+        localStorage.setItem('studyPlatform', JSON.stringify(studyPlatform));
+    }, [studyPlatform]);
 
     useEffect(() => {
         localStorage.setItem('userName', JSON.stringify(userName));
@@ -93,9 +108,9 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem('generationHistory', JSON.stringify(generationHistory));
     }, [generationHistory]);
 
-    useEffect(() => {
-        localStorage.setItem('modulos', JSON.stringify(modulos));
-    }, [modulos]);
+    // useEffect(() => {
+    //     localStorage.setItem('modulos', JSON.stringify(modulos));
+    // }, [modulos]);
 
     useEffect(() => {
         localStorage.setItem('sidebar', JSON.stringify(sidebar));
@@ -106,6 +121,8 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
             value={{
                 introduction,
                 setIntroduction,
+                studyPlatform,
+                setStudyPlatform,
                 userName,   
                 setUserName,
                 personality,
@@ -114,8 +131,8 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
                 setStudyMaterial,
                 generationHistory,
                 setGenerationHistory,
-                modulos,
-                setModulos,
+                // modulos,
+                // setModulos,
                 sidebar,
                 setSidebar,
             }}

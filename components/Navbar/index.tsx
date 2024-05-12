@@ -25,31 +25,10 @@ import { useAppContext } from "@/contexts/appContext";
 
 export const Navbar = () => {
 	const { setSidebar } = useAppContext();
-	
-	const searchInput = (
-		<Input
-			aria-label="Search"
-			classNames={{
-				inputWrapper: "bg-default-100",
-				input: "text-sm",
-			}}
-			endContent={
-				<Kbd className="hidden lg:inline-block" keys={["command"]}>
-					K
-				</Kbd>
-			}
-			labelPlacement="outside"
-			placeholder="Search..."
-			startContent={
-				<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-			}
-			type="search"
-		/>
-	);
 
 	return (
 		<NextUINavbar 
-			maxWidth="xl" 
+			maxWidth="full" 
 			position="sticky" 
 			className="shadow-navbar border-b-[1px] border-[#e5e7eb] dark:border-[#3b3b3b] bg-[white] dark:bg-[#111827]"
 			onMenuOpenChange={() => setSidebar((prev) => ({ expanded: !prev.expanded }))}

@@ -19,6 +19,25 @@ type IntroductionType = {
 
 type SetIntroductionType = Dispatch<SetStateAction<IntroductionType>>;
 
+type ModuleType = {
+    title: string;
+    description: string;
+    content: { html: string }[];
+    isOpen: boolean;
+    chatHistory: ChatHistoryType[];
+};
+
+type StudyPlatformType = {
+    show: boolean;
+    isGettingModels: boolean;
+    isLoading: boolean;
+    modulos: ModuleType[];
+    actModule: number;
+    setModulos: (modulos: ModuleType[]) => void;
+};
+
+type SetStudyPlatformType = Dispatch<SetStateAction<StudyPlatformType>>;
+
 type SidebarType = {
     expanded: boolean;
 };
@@ -29,11 +48,3 @@ type ChatHistoryType = {
     role: 'user' | 'model';
     parts: { text: string }[];
 };  
-
-type ModuleType = {
-    title: string;
-    description: string;
-    html: string;
-    isOpen: boolean;
-    chatHistory: ChatHistoryType[];
-};

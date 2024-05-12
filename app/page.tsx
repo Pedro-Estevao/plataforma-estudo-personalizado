@@ -44,14 +44,8 @@ const pageTransition = (duration: number) => ({
 });
 
 const Home = () => {
-	const { introduction, setSidebar } = useAppContext();
+	const { introduction, setSidebar, studyPlatform } = useAppContext();
     const { width } = useWindowSize();
-
-	useEffect(() => {
-		if (!introduction.show && introduction.isLoading) {
-			
-		}
-	}, [introduction.show, introduction.isLoading]);
 
 	useEffect(() => {
 		window.addEventListener("resize", () => {
@@ -62,7 +56,7 @@ const Home = () => {
     }, [setSidebar, width]);
 
 	return (
-		<div>
+		<>
 			<AnimatePresence mode='popLayout'>
 				{introduction.show && (
 					<motion.div
@@ -72,7 +66,7 @@ const Home = () => {
 						exit="out"
 						variants={pageVariants(2)}
 						transition={pageTransition(2)}
-						className="relative w-full h-full z-[999]"
+						className="relative w-full h-full min-h-[100lvh] z-[999]"
 					>
 						<Introduction />
 					</motion.div>
@@ -86,7 +80,7 @@ const Home = () => {
 						exit="out"
 						variants={pageVariants(3)}
 						transition={pageTransition(2)}
-						className="relative z-[998]"
+						className="relative w-full h-full min-h-[100lvh] z-[998]"
 					>
 						<IntroductionLoading />
 					</motion.div>
@@ -99,12 +93,12 @@ const Home = () => {
 					exit="out"
 					variants={pageVariants(3)}
 					transition={pageTransition(2)}
-					className={`relative z-[1] ${introduction.show || introduction.isLoading ? "invisible" : "visible"}`}
+					className={`relative w-full h-full min-h-[100lvh] z-[1] ${studyPlatform.show ? "visible" : "invisible"}`}
 				>
 					<StudyPlatform />
 				</motion.div>
 			</AnimatePresence>
-		</div>
+		</>
 	);
 };
 

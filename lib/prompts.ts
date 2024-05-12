@@ -5,7 +5,7 @@ const prompts = {
         return `Por favor, monte um plano de estudo personalizado para o tema: '${themeStudy}'. Você deve montar módulos para os diferentes temas a serem abordados. Cada módulo deve ser rico em conteúdo, contudo, por enquanto você deve devolver somente o título e uma breve descrição do que será abordado em cada módulo. Por favor devolva o resultado em json. Limite-se a no máximo 6 módulos. Exemplo de resposta: 'planoEstudo: [{title,description},{...},....]'. RESPOSTA:`;
     },
     generateModule: (module: ModuleType) => {
-        return `Por favor, monte um plano de estudo personalizado para o tema: ${module.description}. Você deve montar módulos para os diferentes temas a serem abordados. Cada módulo deve ser rico em conteúdo, contendo imagens para ilustrar as informações quando possível, ou quando não for possível, um link para uma imagem. Por favor devolva o resultado em json. Limite-se a no máximo 12 módulos. Exemplo de resposta: 'planoEstudo: [{title,html},{...},....]' RESPOSTA:`;
+        return `Por favor, gere o conteúdo do módulo: '${module.title}'. Desenvolva com base na descrição: '${module.description}', sem fugir do tema. O conteúdo deve ser rico, contendo imagens para ilustrar as informações quando possível, ou quando não for possível, um link para uma imagem. Por favor devolva a página HTML em um json. Exemplo de resposta: 'modulo: [{html}]' RESPOSTA:`;
     }
 };
 

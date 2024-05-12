@@ -4,8 +4,9 @@ import {
     HarmBlockThreshold
 } from "@google/generative-ai";
 import getInstructions from "./getInstructions";
+import { ChatHistoryType } from "@/@types/appContext";
 
-const geminiClient = (personality: TeacherPersonality) => {
+const geminiClient = (personality: TeacherPersonality, history?: ChatHistoryType[]) => {
     const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || '');
     const model = genAI.getGenerativeModel({ 
         model: process.env.NEXT_PUBLIC_GEMINI_MODEL || '',
@@ -41,14 +42,14 @@ const geminiClient = (personality: TeacherPersonality) => {
     const chat = model.startChat({
         generationConfig,
         safetySettings,
-        history: [],
+        history: history || [],
     });
 
     return chat;
 };
 
-const interactionGemini = async (message: string, personality: TeacherPersonality) => {
-    const result = await geminiClient(personality).sendMessage(message);
+const interactionGemini = async (message: string, personality: TeacherPersonality, history?: ChatHistoryType[]) => {
+    const result = await geminiClient(personality, history).sendMessage(message);
     return result.response;
 };
 

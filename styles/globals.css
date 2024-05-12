@@ -178,6 +178,10 @@
 }
 /*  */
 
+[data-overlay-container="true"] {
+    min-height: 100lvh;
+}
+
 @keyframes intro-loading {
     0% {
         background-color: #076dff;
