@@ -52,35 +52,52 @@ const AppContext = createContext({
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
     const [introduction, setIntroduction] = useState<IntroductionType>(() => {
-        const localData = localStorage.getItem('introduction');
+        let localData = null;
+        if (typeof window !== 'undefined') {
+            localData = localStorage.getItem('introduction');
+        }
         return localData ? JSON.parse(localData) : { show: true, isLoading: false, actPage: 1, pages: { page1: { input: false, button: false, visited: false }, page2: { input: false, button: false, visited: false }, page3: { input: false, button: false, visited: false } } };
     });
     const [studyPlatform, setStudyPlatform] = useState<StudyPlatformType>(() => {
-        const localData = localStorage.getItem('studyPlatform');
+        let localData = null;
+        if (typeof window !== 'undefined') {
+            localData = localStorage.getItem('studyPlatform');
+        }
         return localData ? JSON.parse(localData) : { show: false, isGettingModels: false, isLoading: false, actModule: 0, modulos: [], setModulos: (modulos: ModuleType[]) => {} };
     });
     const [userName, setUserName] = useState<string>(() => {
-        const localData = localStorage.getItem('userName');
+        let localData = null;
+        if (typeof window !== 'undefined') {
+            localData = localStorage.getItem('userName');
+        }
         return localData ? JSON.parse(localData) : '';
     });
     const [personality, setPersonality] = useState<TeacherPersonality>(() => {
-        const localData = localStorage.getItem('personality');
+        let localData = null;
+        if (typeof window !== 'undefined') {
+            localData = localStorage.getItem('personality');
+        }
         return localData ? JSON.parse(localData) : '';
     });
     const [studyMaterial, setStudyMaterial] = useState<string>(() => {
-        const localData = localStorage.getItem('studyMaterial');
+        let localData = null;
+        if (typeof window !== 'undefined') {
+            localData = localStorage.getItem('studyMaterial');
+        }
         return localData ? JSON.parse(localData) : '';
     });
     const [generationHistory, setGenerationHistory] = useState<ChatHistoryType[]>(() => {
-        const localData = localStorage.getItem('generationHistory');
+        let localData = null;
+        if (typeof window !== 'undefined') {
+            localData = localStorage.getItem('generationHistory');
+        }
         return localData ? JSON.parse(localData) : [];
     });
-    // const [modulos, setModulos] = useState<ModuleType[]>(() => {
-    //     const localData = localStorage.getItem('modulos');
-    //     return localData ? JSON.parse(localData) : [];
-    // });
     const [sidebar, setSidebar] = useState<SidebarType>(() => {
-        const localData = localStorage.getItem('sidebar');
+        let localData = null;
+        if (typeof window !== 'undefined') {
+            localData = localStorage.getItem('sidebar');
+        }
         return localData ? JSON.parse(localData) : { expanded: false };
     });
 
@@ -108,10 +125,6 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem('generationHistory', JSON.stringify(generationHistory));
     }, [generationHistory]);
 
-    // useEffect(() => {
-    //     localStorage.setItem('modulos', JSON.stringify(modulos));
-    // }, [modulos]);
-
     useEffect(() => {
         localStorage.setItem('sidebar', JSON.stringify(sidebar));
     }, [sidebar]);
@@ -131,8 +144,6 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
                 setStudyMaterial,
                 generationHistory,
                 setGenerationHistory,
-                // modulos,
-                // setModulos,
                 sidebar,
                 setSidebar,
             }}
