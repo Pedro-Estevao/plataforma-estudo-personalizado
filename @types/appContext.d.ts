@@ -31,9 +31,8 @@ type StudyPlatformType = {
     show: boolean;
     isGettingModels: boolean;
     isLoading: boolean;
-    modulos: ModuleType[];
     actModule: number;
-    setModulos: (modulos: ModuleType[]) => void;
+    modulos: ModuleType[];
 };
 
 type SetStudyPlatformType = Dispatch<SetStateAction<StudyPlatformType>>;

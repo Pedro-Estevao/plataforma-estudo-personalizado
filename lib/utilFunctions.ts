@@ -1,6 +1,4 @@
-import { ChatHistoryType, IntroductionType, ModuleType, SetStudyPlatformType, StudyPlatformType } from "@/@types/appContext";
-import interactionGemini from "./geminiClient";
-import prompts from "./prompts";
+import { ChatHistoryType, IntroductionType, ModuleType, SetIntroductionType, SetStudyPlatformType, StudyPlatformType } from "@/@types/appContext";
 
 export const addHistoryChat = (
     history: ChatHistoryType[],
@@ -43,7 +41,7 @@ export const cleanAndConvertPlanoEstudo = (planoEstudoString: string) => {
     return planoEstudo;
 }
 
-const addPropertiesToModules = (modules: any[]): ModuleType[] => {
+export const addPropertiesToModules = (modules: any[]): ModuleType[] => {
     return modules.map(module => ({
         ...module,
         content: [],
@@ -53,18 +51,15 @@ const addPropertiesToModules = (modules: any[]): ModuleType[] => {
 }
 
 export const generateModules = (
-    history: ChatHistoryType[],
-    setHistory: (history: ChatHistoryType[]) => void,
-    user: string,
     model: string,
     studyPlatform: StudyPlatformType,
-    setStudyPlatform: (studyPlatform: StudyPlatformType) => void,
+    setStudyPlatform: SetStudyPlatformType,
 ) => {
-    addStoriesChat(history, setHistory, user, model);
     const cleanedModules = cleanAndConvertPlanoEstudo(model);
     const newModules = addPropertiesToModules(cleanedModules);
     setStudyPlatform({
         ...studyPlatform,
+        show: true,
         modulos: [
             ...studyPlatform.modulos,
             ...newModules
@@ -78,18 +73,19 @@ export const generateModule = (
     user: string,
     model: string,
     studyPlatform: StudyPlatformType,
-    setStudyPlatform: (studyPlatform: StudyPlatformType) => void,
+    setStudyPlatform: SetStudyPlatformType,
 ) => {
     addStoriesChat(history, setHistory, user, model);
     const cleanedModule = cleanAndConvertPlanoEstudo(model);
-
-    // const updatedModules = studyPlatform.modulos[studyPlatform.actModule].content.concat(cleanedModule.content);
+    console.log(cleanedModule);
     const updatedModules = [...studyPlatform.modulos];
+    console.log(updatedModules);
     updatedModules[studyPlatform.actModule] = {
         ...updatedModules[studyPlatform.actModule],
+        isOpen: true,
         content: [
             ...updatedModules[studyPlatform.actModule].content,
-            ...cleanedModule.content
+            ...cleanedModule
         ]
     };
 
@@ -97,58 +93,19 @@ export const generateModule = (
         ...studyPlatform, 
         modulos: updatedModules
     });
-};
-
-export const handleGetModule = async (
-    generationHistory: ChatHistoryType[],
-    setGenerationHistory: (history: ChatHistoryType[]) => void,
-    personality: TeacherPersonality,
-    studyPlatform: StudyPlatformType,
-    setStudyPlatform: SetStudyPlatformType,
-) => {
-    if (generationHistory.length === 0) return;
-
-    let attempts = 0;
-    while (attempts < 5) {
-        try {
-            const prompt = prompts.generateModule(studyPlatform.modulos[studyPlatform.actModule]);
-            const response = await interactionGemini(prompt, personality, generationHistory);
-            generateModule(generationHistory, setGenerationHistory, prompt, response.text(), studyPlatform, setStudyPlatform);
-            break;
-        } catch (error) {
-            console.error(error);
-            attempts++;
-        } finally {
-            setStudyPlatform({ ...studyPlatform, isLoading: false });
-        }
-    };
-}
-
-export const handleGetModules = async (
-    themeStudy: string,
-    personality: TeacherPersonality,
-    generationHistory: ChatHistoryType[],
-    setGenerationHistory: (history: ChatHistoryType[]) => void,
-    introduction: IntroductionType,
-    setIntroduction: (introduction: IntroductionType) => void,
-    studyPlatform: StudyPlatformType,
-    setStudyPlatform: (studyPlatform: StudyPlatformType) => void,
-) => {
-    if (!themeStudy) return;
-
-    let attempts = 0;
-    while (attempts < 5) {
-        try {
-            const prompt = prompts.generateModules(themeStudy);
-            const response = await interactionGemini(prompt, personality);
-            generateModules(generationHistory, setGenerationHistory, prompt, response.text(), studyPlatform, setStudyPlatform);
-            break;
-        } catch (error) {
-            console.error(error);
-            attempts++;
-        } finally {
-            setIntroduction({ ...introduction, isLoading: false });
-            setStudyPlatform({ ...studyPlatform, show: true, isGettingModels: true});
-        }
-    };
+    // setStudyPlatform(prevState => ({
+    //     ...prevState,
+    //     modulos: prevState.modulos.map((module, index) => {
+    //         if (index === prevState.actModule) {
+    //             return {
+    //                 ...module,
+    //                 content: [
+    //                     ...module.content,
+    //                     ...cleanedModule.content
+    //                 ]
+    //             }
+    //         }
+    //         return module;
+    //     })
+    // }))
 };

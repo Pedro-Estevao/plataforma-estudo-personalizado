@@ -33,7 +33,6 @@ const AppContext = createContext({
         isLoading: false,
         actModule: 0,
         modulos: [] as ModuleType[],
-        setModulos: (modulos: ModuleType[]) => {},
     },
     setStudyPlatform: (() => {}) as SetStudyPlatformType,
     userName: '',
@@ -63,7 +62,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         if (typeof window !== 'undefined') {
             localData = localStorage.getItem('studyPlatform');
         }
-        return localData ? JSON.parse(localData) : { show: false, isGettingModels: false, isLoading: false, actModule: 0, modulos: [], setModulos: (modulos: ModuleType[]) => {} };
+        return localData ? JSON.parse(localData) : { show: false, isGettingModels: false, isLoading: false, actModule: 0, modulos: [] };
     });
     const [userName, setUserName] = useState<string>(() => {
         let localData = null;

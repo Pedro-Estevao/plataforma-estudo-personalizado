@@ -10,7 +10,6 @@ import Image from "next/image";
 import { Radio, RadioGroup } from "@nextui-org/radio";
 import { cn } from "@nextui-org/system";
 import { Code } from "@nextui-org/code";
-import getInstructions from "@/lib/getInstructions";
 
 const pageVariants = (durationStart: number, durationEnd?: number) => ({
     initial: {
@@ -71,8 +70,9 @@ const CustomRadio = (props: any) => {
 }
 
 const Introduction = () => {
-    const { introduction, setIntroduction, userName, setUserName, personality, setPersonality, studyMaterial, setStudyMaterial } = useAppContext();
+    const { introduction, setIntroduction, userName, setUserName, personality, setPersonality, studyMaterial, setStudyMaterial, generationHistory, setGenerationHistory, studyPlatform, setStudyPlatform } = useAppContext();
     const [page, setPage] = useState<number>(introduction.actPage);
+    
     const page1El = useRef(null);
     const page2El = useRef(null);
     const page3El = useRef(null);

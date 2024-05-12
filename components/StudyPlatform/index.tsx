@@ -1,15 +1,16 @@
 'use client';
 
 import { useAppContext } from "@/contexts/appContext";
-import { Code } from "@nextui-org/code";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Sidebar from "../Sidebar";
 import { Navbar } from "../Navbar";
-import { cleanAndConvertPlanoEstudo, handleGetModule, handleGetModules } from "@/lib/utilFunctions";
+import { addPropertiesToModules, addStoriesChat, cleanAndConvertPlanoEstudo, generateModules } from "@/lib/utilFunctions";
 import { Button } from "@nextui-org/button";
-import IntroductionLoading from "../IntroductionLoading";
 import Typed from "typed.js";
 import { AnimatePresence, motion } from "framer-motion";
+import prompts from "@/lib/prompts";
+import interactionGemini from "@/lib/geminiClient";
+import { useHandleGetModule, useHandleGetModules } from "@/hooks/getModules";
 
 const pageVariants = (durationStart: number, durationEnd?: number) => ({
     initial: {
@@ -67,7 +68,8 @@ const StudyPlatformLoading = () => {
 
 const StudyPlatformInitial = () => {
     const { studyPlatform, setStudyPlatform, generationHistory, setGenerationHistory, personality } = useAppContext();
-    
+    const handleGetModule = useHandleGetModule();
+
     return (
         <div className="flex flex-col items-center justify-center gap-20 w-full h-full min-h-[calc(100lvh-65px)]">
             <h2 className="text-[65px] text-[#438dff] font-semibold uppercase text-center">START!</h2>
@@ -79,7 +81,11 @@ const StudyPlatformInitial = () => {
             <Button
                 className={`bg-[#68a2fe] text-white border-none outline-none rounded-[20px] hover:bg-[#076dff]`}
                 onClick={() => {
-                    setStudyPlatform({ ...studyPlatform, isLoading: true });
+                    setStudyPlatform(prevState => ({
+                        ...prevState,
+                        isGettingModels: false,
+                        isLoading: true,
+                    }));
                     handleGetModule(generationHistory, setGenerationHistory, personality, studyPlatform, setStudyPlatform);
                 }}
             >
@@ -92,20 +98,39 @@ const StudyPlatformInitial = () => {
 const StudyPlatform = () => {
     const { introduction, setIntroduction, personality, studyMaterial, generationHistory, setGenerationHistory, studyPlatform, setStudyPlatform } = useAppContext();
     const [modulo, setModulo] = useState<number>(studyPlatform.actModule);
+    const handleGetModules = useHandleGetModules();
+
+    // const handleGetModules = useCallback(async () => {
+    //     if (!studyMaterial) return;
+    
+    //     let attempts = 0;
+    //     while (attempts < 5) {
+    //         try {
+    //             const prompt = prompts.generateModules(studyMaterial);
+    //             const response = await interactionGemini(prompt, personality);
+    //             addStoriesChat(generationHistory, setGenerationHistory, prompt, response.text());
+    //             break;
+    //         } catch (error) {
+    //             console.error(error);
+    //             attempts++;
+    //         } finally {
+    //             setIntroduction({ ...introduction, isLoading: false });
+    //             setStudyPlatform({ ...studyPlatform, isGettingModels: true});
+    //         }
+    //     };
+    // }, [generationHistory, introduction, personality, setGenerationHistory, setIntroduction, setStudyPlatform, studyMaterial, studyPlatform]);
 
     useEffect(() => {
-        if (studyMaterial && introduction.isLoading) {
+        if (introduction.isLoading) {
             handleGetModules(studyMaterial, personality, generationHistory, setGenerationHistory, introduction, setIntroduction, studyPlatform, setStudyPlatform);
         }
-    }, [generationHistory, introduction, personality, setGenerationHistory, setIntroduction, setStudyPlatform, studyMaterial, studyPlatform]);
+    }, [generationHistory, handleGetModules, introduction, personality, setGenerationHistory, setIntroduction, setStudyPlatform, studyMaterial, studyPlatform]);
 
-    // useEffect(() => {
-    //     if (studyPlatform.isLoading) {
-    //         if (studyPlatform.modulos[studyPlatform.actModule].isOpen && studyPlatform.modulos[studyPlatform.actModule].content.length > 0) {
-    //             setStudyPlatform(prevState => ({ ...prevState, isLoading: false }));
-    //         }
-    //     }
-    // }, [setStudyPlatform, studyPlatform.actModule, studyPlatform.isLoading, studyPlatform.modulos]);
+    useEffect(() => {
+        if (studyPlatform.isGettingModels && studyPlatform.show === false) {
+            generateModules(generationHistory[1].parts[0].text, studyPlatform, setStudyPlatform);
+        }
+    }, [generationHistory, setStudyPlatform, studyPlatform]);
 
     return (
         <div className="relative min-h-[100lvh] bg-white dark:bg-[#18181c]">
@@ -216,7 +241,7 @@ const StudyPlatform = () => {
                                                     modulos: updatedModule,
                                                 }));
 
-                                                handleGetModule(generationHistory, setGenerationHistory, personality, studyPlatform, setStudyPlatform);
+                                                // handleGetModule(generationHistory, setGenerationHistory, personality, studyPlatform, setStudyPlatform);
                                             }}
                                         >
                                             {modulo === (studyPlatform.modulos.length - 1) ? "Aprender" : "Próximo"}
