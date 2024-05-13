@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-	name: "Next.js + NextUI",
-	description: "Make beautiful websites regardless of your design experience.",
+	name: "Plataforma de Estudo Personalizado",
+	description: "This is a simple project of a Personalized Study Platform, developed for the contest during the AI Immersion - 2nd Edition, held by Alura + Google. The platform is designed to help students to study in a more personalized way, with the help of AI. Developed with Next.js, Tailwind CSS, and NextUI.",
 	navItems: [
 		{
 			label: "Home",
