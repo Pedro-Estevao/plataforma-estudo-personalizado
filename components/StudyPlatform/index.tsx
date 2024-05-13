@@ -4,13 +4,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useAppContext } from "@/contexts/appContext";
 import Sidebar from "../Sidebar";
 import { Navbar } from "../Navbar";
-import { addStoriesChat, generateModule, generateModules } from "@/lib/utilFunctions";
+import { addStoriesChat, generateModule, generateModules, resetContext } from "@/lib/utilFunctions";
 import { Button } from "@nextui-org/button";
 import Typed from "typed.js";
 import { AnimatePresence, motion } from "framer-motion";
 import prompts from "@/lib/prompts";
 import interactionGemini from "@/lib/geminiClient";
 import { ModuleContentType } from "@/@types/appContext";
+import { BadgeFill } from "../Icons";
 
 const pageVariants = (durationStart: number, durationEnd?: number) => ({
     initial: {
@@ -99,8 +100,7 @@ const StudyPlatform = () => {
     const { introduction, setIntroduction, personality, studyMaterial, generationHistory, setGenerationHistory, studyPlatform, setStudyPlatform } = useAppContext();
     const [modulo, setModulo] = useState<number>(studyPlatform.actModule);
     const [actualModuleRes, setActualModuleRes] = useState<string>("");
-    const [moduloContent, setModuloContent] = useState<ModuleContentType[]>([]);
-    const [nextModule, setNextModule] = useState<boolean>(false);
+    const [timeModule, setTimeModule] = useState<boolean>(false);
 
     const handleGetModules = useCallback(async () => {
         if (!studyMaterial) return;
@@ -161,7 +161,7 @@ const StudyPlatform = () => {
     useEffect(() => {
         if (!studyPlatform.isGettingModulo && !studyPlatform.isLoading) {
             setTimeout(() => {
-                setNextModule(true);
+                setTimeModule(true);
             }, 5000);
         }
     }, [studyPlatform.isGettingModulo, studyPlatform.isLoading]);
@@ -171,9 +171,8 @@ const StudyPlatform = () => {
             if (studyPlatform.modulos[studyPlatform.actModule].isOpen === false) {
                 handleGetModule();
             }
-            
+
             if (studyPlatform.modulos[studyPlatform.actModule] && studyPlatform.modulos[studyPlatform.actModule].content) {
-                setModuloContent(studyPlatform.modulos[studyPlatform.actModule].content);
                 setModulo(studyPlatform.actModule);
 
                 if (studyPlatform.modulos[studyPlatform.actModule].isOpen === true) {
@@ -182,7 +181,6 @@ const StudyPlatform = () => {
             }
         } else if (studyPlatform.actModule < modulo) {
             if (studyPlatform.modulos[studyPlatform.actModule] && studyPlatform.modulos[studyPlatform.actModule].content) {
-                setModuloContent(studyPlatform.modulos[studyPlatform.actModule].content);
                 setModulo(studyPlatform.actModule);
                 setStudyPlatform(prevState => ({ ...prevState, isLoading: false, isGettingModulo: false }));
             }
@@ -199,6 +197,7 @@ const StudyPlatform = () => {
                     exit="out"
                     variants={pageVariants(2)}
                     transition={pageTransition(2)}
+                    className="relative z-50"
                 >
                     <Sidebar />
                 </motion.div>
@@ -289,18 +288,14 @@ const StudyPlatform = () => {
                                         transition={pageTransition(2)}
                                     >
                                         <Button
-                                            className={`bg-[#68a2fe] w-[143px] text-white border-none outline-none rounded-[20px] hover:bg-[#076dff] ${modulo === (studyPlatform.modulos.length - 1) ? "invisible select-none" : "visible"}`}
-                                            // isDisabled={!nextModule}
+                                            className={`bg-[#68a2fe] min-w-[143px] text-white border-none outline-none rounded-[20px] hover:bg-[#076dff] transition-all`}
+                                            isDisabled={!timeModule}
                                             onClick={() => {
                                                 if (modulo === (studyPlatform.modulos.length - 1)) {
-                                                    setIntroduction(prevState => ({
-                                                        ...prevState,
-                                                        show: false,
-                                                        isLoading: true,
-                                                    }));
+                                                    resetContext(setIntroduction, setStudyPlatform);
                                                     return;
                                                 }
-                                                
+
                                                 setStudyPlatform(prevState => ({
                                                     ...prevState,
                                                     actModule: prevState.actModule + 1,
@@ -309,7 +304,12 @@ const StudyPlatform = () => {
                                                 }));
                                             }}
                                         >
-                                            {modulo === (studyPlatform.modulos.length - 1) ? "Novo Tema" : "Próximo"}
+                                            {modulo === (studyPlatform.modulos.length - 1) ? (
+                                                <>
+                                                    <BadgeFill className="transition-all" size={24} />
+                                                    Próximo Tema
+                                                </>
+                                            ) : "Próximo"}
                                         </Button>
                                     </motion.div>
                                 </div>

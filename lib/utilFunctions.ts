@@ -1,4 +1,4 @@
-import { ChatHistoryType, ModuleType, SetStudyPlatformType, StudyPlatformType } from "@/@types/appContext";
+import { ChatHistoryType, ModuleType, PagesType, SetIntroductionType, SetStudyPlatformType, StudyPlatformType } from "@/@types/appContext";
 import jsonParseSafe from 'json-parse-safe';
 
 export const addHistoryChat = (
@@ -87,5 +87,42 @@ export const generateModule = (
     setStudyPlatform(prevState => ({ 
         ...prevState,
         modulos: updatedModules
+    }));
+};
+
+export const resetContext = (
+    setIntroduction: SetIntroductionType,
+    setStudyPlatform: SetStudyPlatformType,
+) => {
+    setStudyPlatform({
+        show: false,
+        isGettingModels: false,
+        isGettingModulo: false,
+        isLoading: false,
+        actModule: 0,
+        modulos: [],
+    });
+    setIntroduction(prevState => ({
+        ...prevState,
+        show: true,
+        isLoading: false,
+        actPage: 3,
+        pages: {
+            page1: {
+                input: true,
+                button: true,
+                visited: true,
+            },
+            page2: {
+                input: true,
+                button: true,
+                visited: true,
+            },
+            page3: {
+                input: true,
+                button: true,
+                visited: true,
+            },
+        } as PagesType,
     }));
 };
