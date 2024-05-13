@@ -70,7 +70,7 @@
     font-weight: 400;
     font-variation-settings: normal;
     line-height: var(--nextui-line-height-small);
-    padding: 0.25rem 0.5rem;
+    padding: 0.15rem 0.5rem;
     background-color: hsl(var(--nextui-default) / .4);
     border-radius: var(--nextui-radius-small);
     white-space: nowrap;
@@ -82,6 +82,10 @@
     overflow-x:auto;
     padding: 20px;
     direction: ltr;
+}
+
+.studyPlatform-content div > ul li > *:first-child:is(code) {
+    margin-bottom: 5px;
 }
 
 [data-overlay-container="true"] {
