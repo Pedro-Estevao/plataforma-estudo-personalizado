@@ -1,16 +1,8 @@
 'use client';
 
 import React, { useEffect } from "react";
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code"
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/Icons";
 import { useAppContext } from "@/contexts/appContext";
 import Introduction from "@/components/Introduction";
-import { Navbar } from "@/components/Navbar";
 import IntroductionLoading from "@/components/IntroductionLoading";
 import { AnimatePresence, motion } from "framer-motion";
 import StudyPlatform from "@/components/StudyPlatform";

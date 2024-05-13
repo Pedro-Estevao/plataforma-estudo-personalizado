@@ -1,5 +1,4 @@
 import { ChatHistoryType, ModuleType, PagesType, SetIntroductionType, SetStudyPlatformType, StudyPlatformType } from "@/@types/appContext";
-import jsonParseSafe from 'json-parse-safe';
 
 export const addHistoryChat = (
     history: ChatHistoryType[],
