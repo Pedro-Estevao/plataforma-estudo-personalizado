@@ -1,30 +1,14 @@
 import {
 	Navbar as NextUINavbar,
 	NavbarContent,
-	NavbarMenu,
 	NavbarMenuToggle,
 	NavbarBrand,
-	NavbarItem,
-	NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
-import { Kbd } from "@nextui-org/kbd";
-import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
-import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/ThemeSwitch";
-import {
-	TwitterIcon,
-	GithubIcon,
-	DiscordIcon,
-	HeartFilledIcon,
-	SearchIcon,
-	MenuIcon,
-} from "@/components/Icons";
 import { useAppContext } from "@/contexts/appContext";
 
 export const Navbar = () => {
-	const { setSidebar } = useAppContext();
+	const { setSidebar, studyPlatform } = useAppContext();
 
 	return (
 		<NextUINavbar 
@@ -41,7 +25,7 @@ export const Navbar = () => {
 					<div className="relative flex items-center justify-center w-[30px] h-[30px] border-[4px] border-solid border-[#076dff] rounded-[8px] rotate-45 before:block before:bg-[#007bff] before:w-[10px] before:h-[10px] before:rounded-[50%]" />
 				</NavbarBrand>
 				<div className="grid w-full">
-					<span className="text-medium whitespace-nowrap text-ellipsis box-border list-none font-semibold overflow-hidden">Apenas um texto de exemplo para testar a responsividade do navbar perante, sim, perante um texto grande</span>
+					<span className="text-medium whitespace-nowrap text-ellipsis box-border list-none font-semibold overflow-hidden">{studyPlatform.modulos && studyPlatform.modulos[studyPlatform.actModule] && studyPlatform.modulos[studyPlatform.actModule].title}</span>
 				</div>
 			</NavbarContent>
 

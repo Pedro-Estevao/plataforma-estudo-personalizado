@@ -648,15 +648,6 @@ const Introduction = () => {
                                                 ...prevState,
                                                 show: false,
                                                 isLoading: true,
-                                                pages: {
-                                                    ...prevState.pages,
-                                                    [`page${page}` as keyof typeof introduction.pages]: {
-                                                        ...prevState.pages[`page${page}` as keyof typeof introduction.pages],
-                                                        input: false,
-                                                        button: false,
-                                                        visited: true,
-                                                    },
-                                                }
                                             }));
                                             return;
                                         }
