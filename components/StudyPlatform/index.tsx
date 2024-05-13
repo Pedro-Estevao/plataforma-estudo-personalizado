@@ -229,7 +229,7 @@ const StudyPlatform = () => {
                             <StudyPlatformInitial handleGetModule={handleGetModule} />
                         ) : (
                             <main className={`flex flex-col flex-grow flex-shrink-0 gap-y-8 h-full py-10 z-10`}>
-                                <div className="flex flex-col flex-grow flex-shrink-0 px-4 sm:px-6 lg:px-8">
+                                <div className="studyPlatform-content flex flex-col flex-grow flex-shrink-0 px-4 sm:px-6 lg:px-8">
                                     {studyPlatform.modulos[studyPlatform.actModule] && studyPlatform.modulos[studyPlatform.actModule].content && studyPlatform.modulos[studyPlatform.actModule].content.map((item, index) => {
                                         const key = `modulo-${studyPlatform.actModule}-content-${index}`;
                                         const htmlContent = item.html;
