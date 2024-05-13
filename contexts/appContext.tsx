@@ -30,6 +30,7 @@ const AppContext = createContext({
     studyPlatform: {
         show: false,
         isGettingModels: false,
+        isGettingModulo: false,
         isLoading: false,
         actModule: 0,
         modulos: [] as ModuleType[],
@@ -62,7 +63,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         if (typeof window !== 'undefined') {
             localData = localStorage.getItem('studyPlatform');
         }
-        return localData ? JSON.parse(localData) : { show: false, isGettingModels: false, isLoading: false, actModule: 0, modulos: [] };
+        return localData ? JSON.parse(localData) : { show: false, isGettingModels: false, isGettingModulo: false, isLoading: false, actModule: 0, modulos: [] };
     });
     const [userName, setUserName] = useState<string>(() => {
         let localData = null;

@@ -179,9 +179,9 @@ const Introduction = () => {
                             <h2 className="text-[65px] text-[#438dff] font-semibold text-center">Olá</h2>
 
                             {introduction.pages.page1.visited ? (
-                                <div className="text-[16px] text-gray-800 text-center">Sou Gemini, e serei seu professor durante sua jornada de aprendizado. <br />Estou aqui para te ajudar. Mas antes, como posso te chamar?</div>
+                                <div className="text-[16px] text-gray-800 dark:text-[#9ca3af] text-center">Sou Gemini, e serei seu professor durante sua jornada de aprendizado. <br />Estou aqui para te ajudar. Mas antes, como posso te chamar?</div>
                             ) : (
-                                <div ref={page1El} className="text-[16px] text-gray-800 text-center" />
+                                <div ref={page1El} className="text-[16px] text-gray-800 dark:text-[#9ca3af] text-center" />
                             )}
 
                             {introduction.pages.page1.input && (
@@ -329,9 +329,9 @@ const Introduction = () => {
                             className="flex flex-col items-center justify-between gap-12 w-full"
                         >
                             {introduction.pages.page2.visited ? (
-                                <div className="text-[16px] text-gray-800 text-center">Muito prazer <span className="userName">{userName}</span>. <br />Como deseja que seja minha personalidade?</div>
+                                <div className="text-[16px] text-gray-800 dark:text-[#9ca3af] text-center">Muito prazer <span className="userName">{userName}</span>. <br />Como deseja que seja minha personalidade?</div>
                             ) : (
-                                <div ref={page2El} className="text-[16px] text-gray-800 text-center" />
+                                <div ref={page2El} className="text-[16px] text-gray-800 dark:text-[#9ca3af] text-center" />
                             )}
 
                             {introduction.pages.page2.input && (
@@ -490,7 +490,7 @@ const Introduction = () => {
                                 if (introduction.pages.page3.visited) return;
 
                                 new Typed(page3El.current, {
-                                    strings: [`Agora, compartilhe comigo: qual tópico você gostaria de explorar? <br />Estou aqui para orientá-lo nessa jornada de aprendizado. <br/>Por gentileza, seja conciso. Por exemplo, você pode dizer: <br/><Code class="px-2 py-1 h-fit font-mono font-normal inline-block whitespace-nowrap bg-default/40 text-default-foreground text-small rounded-small mt-[5px]">'História do Egito', 'Viagem à Lua', 'Guerra de Canudos' e assim por diante.</Code>`],
+                                    strings: [`Agora, compartilhe comigo: qual tópico você gostaria de explorar? <br />Estou aqui para orientá-lo nessa jornada de aprendizado. <br/>Por gentileza, seja conciso. Por exemplo, você pode dizer: <br/><Code class="px-2 py-1 h-fit font-mono font-normal inline-block whitespace-nowrap bg-default/40 text-default-foreground text-small rounded-small mt-[8px]">'História do Egito', 'Viagem à Lua', 'Guerra de Canudos' e assim por diante.</Code>`],
                                     typeSpeed: 0, //25
                                     showCursor: false,
                                     onComplete: () => {
@@ -515,9 +515,9 @@ const Introduction = () => {
                             </div>
 
                             {introduction.pages.page3.visited ? (
-                                <div className="text-[16px] text-gray-800 text-center">Agora, compartilhe comigo: qual tópico você gostaria de explorar? <br />Estou aqui para orientá-lo nessa jornada de aprendizado. Por gentileza, seja conciso. <br/>Por exemplo, você pode dizer: <br/><Code className="mt-[5px]">&apos;História do Egito&apos;, &apos;Viagem à Lua&apos;, &apos;Guerra de Canudos&apos; e assim por diante.</Code></div>
+                                <div className="text-[16px] text-gray-800 dark:text-[#9ca3af] text-center">Agora, compartilhe comigo: qual tópico você gostaria de explorar? <br />Estou aqui para orientá-lo nessa jornada de aprendizado. Por gentileza, seja conciso. <br/>Por exemplo, você pode dizer: <br/><Code className="mt-[8px]">&apos;História do Egito&apos;, &apos;Viagem à Lua&apos;, &apos;Guerra de Canudos&apos; e assim por diante.</Code></div>
                             ) : (
-                                <div ref={page3El} className="text-[16px] text-gray-800 text-center" />
+                                <div ref={page3El} className="text-[16px] text-gray-800 dark:text-[#9ca3af] text-center" />
                             )}
 
                             {introduction.pages.page3.input && (

@@ -93,7 +93,7 @@ const Home = () => {
 					exit="out"
 					variants={pageVariants(3)}
 					transition={pageTransition(2)}
-					className={`relative w-full h-full min-h-[100lvh] z-[1] ${studyPlatform.show ? "visible" : "invisible"}`}
+					className={`relative w-full h-full min-h-[100lvh] z-[1] ${studyPlatform.show ? "visible" : "invisible h-0 min-h-0 overflow-hidden"}`}
 				>
 					<StudyPlatform />
 				</motion.div>

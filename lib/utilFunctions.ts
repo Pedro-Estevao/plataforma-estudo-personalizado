@@ -1,4 +1,5 @@
-import { ChatHistoryType, IntroductionType, ModuleType, SetIntroductionType, SetStudyPlatformType, StudyPlatformType } from "@/@types/appContext";
+import { ChatHistoryType, ModuleType, SetStudyPlatformType, StudyPlatformType } from "@/@types/appContext";
+import jsonParseSafe from 'json-parse-safe';
 
 export const addHistoryChat = (
     history: ChatHistoryType[],
@@ -35,7 +36,7 @@ export const addStoriesChat = (
 export const cleanAndConvertPlanoEstudo = (planoEstudoString: string) => {
     const jsonStart = planoEstudoString.indexOf('[');
     const jsonEnd = planoEstudoString.lastIndexOf(']');
-    const cleanedString = planoEstudoString.slice(jsonStart, jsonEnd + 1);
+    const cleanedString = planoEstudoString.slice(jsonStart, jsonEnd + 1).replace(/[\n\r\t\b\f]/g, '').replace(/[\x00-\x1F\x7F-\x9F]/g, '');
     const planoEstudo = JSON.parse(cleanedString);
 
     return planoEstudo;
@@ -68,18 +69,12 @@ export const generateModules = (
 };
 
 export const generateModule = (
-    history: ChatHistoryType[],
-    setHistory: (history: ChatHistoryType[]) => void,
-    user: string,
     model: string,
     studyPlatform: StudyPlatformType,
     setStudyPlatform: SetStudyPlatformType,
 ) => {
-    addStoriesChat(history, setHistory, user, model);
     const cleanedModule = cleanAndConvertPlanoEstudo(model);
-    console.log(cleanedModule);
     const updatedModules = [...studyPlatform.modulos];
-    console.log(updatedModules);
     updatedModules[studyPlatform.actModule] = {
         ...updatedModules[studyPlatform.actModule],
         isOpen: true,
@@ -89,23 +84,8 @@ export const generateModule = (
         ]
     };
 
-    setStudyPlatform({ 
-        ...studyPlatform, 
+    setStudyPlatform(prevState => ({ 
+        ...prevState,
         modulos: updatedModules
-    });
-    // setStudyPlatform(prevState => ({
-    //     ...prevState,
-    //     modulos: prevState.modulos.map((module, index) => {
-    //         if (index === prevState.actModule) {
-    //             return {
-    //                 ...module,
-    //                 content: [
-    //                     ...module.content,
-    //                     ...cleanedModule.content
-    //                 ]
-    //             }
-    //         }
-    //         return module;
-    //     })
-    // }))
+    }));
 };

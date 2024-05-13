@@ -34,6 +34,7 @@
 		"framer-motion": "^11.1.9",
 		"intl-messageformat": "^10.5.12",
 		"jsdom": "^24.0.0",
+		"json-parse-safe": "^2.0.0",
 		"next": "14.2.1",
 		"next-themes": "^0.2.1",
 		"postcss": "8.4.38",
@@ -48,6 +49,7 @@
 	},
 	"devDependencies": {
 		"@types/dompurify": "^3.0.5",
-		"@types/jsdom": "^21.1.6"
+		"@types/jsdom": "^21.1.6",
+		"@types/json-parse-safe": "^2.0.3"
 	}
 }

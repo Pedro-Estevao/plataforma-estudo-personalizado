@@ -19,10 +19,14 @@ type IntroductionType = {
 
 type SetIntroductionType = Dispatch<SetStateAction<IntroductionType>>;
 
+type ModuleContentType = {
+    html: string;
+};
+
 type ModuleType = {
     title: string;
     description: string;
-    content: { html: string }[];
+    content: ModuleContentType[];
     isOpen: boolean;
     chatHistory: ChatHistoryType[];
 };
@@ -30,6 +34,7 @@ type ModuleType = {
 type StudyPlatformType = {
     show: boolean;
     isGettingModels: boolean;
+    isGettingModulo: boolean;
     isLoading: boolean;
     actModule: number;
     modulos: ModuleType[];

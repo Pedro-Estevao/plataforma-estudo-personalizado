@@ -6,7 +6,7 @@ import React from "react";
 import { CloseIcon, LockIcon, LockIconFill, UnLockIcon, UnLockIconFill } from "../Icons";
 
 const Sidebar = () => {
-    const { sidebar, studyPlatform } = useAppContext();
+    const { sidebar, studyPlatform, setStudyPlatform } = useAppContext();
 
     return (
         <>
@@ -33,13 +33,26 @@ const Sidebar = () => {
                             <li className="">
                                 <ul role="list" className="flex flex-col gap-y-[4px] list-none m-0 p-0 -mx-2">
                                     {studyPlatform.modulos.map((modulo, index) => (
-                                        <li key={index} className={!modulo.isOpen ? "select-none pointer-events-none" : ""}>
-                                            <div className="flex gap-x-3 items-center cursor-pointer rounded-[0.375rem] p-2 text-[0.875rem] font-semibold leading-7 hover:bg-[#f9fafb] dark:hover:bg-[#1f2937] text-[#374151] dark:text-[#9ca3af] group hover:text-[#4f46e5] dark:hover:text-[white]">
+                                        <li 
+                                            key={index} 
+                                            className={!modulo.isOpen ? "select-none pointer-events-none" : ""}
+                                            onClick={() => {
+                                                if (!modulo.isOpen) return;
+
+                                                setStudyPlatform(prevState => ({
+                                                    ...prevState,
+                                                    actModule: index,
+                                                    isGettingModulo: true,
+                                                    isLoading: true,
+                                                }));
+                                            }}
+                                        >
+                                            <div className={`flex gap-x-3 items-center cursor-pointer rounded-[0.375rem] p-2 text-[0.875rem] font-semibold leading-7 text-[#374151] dark:text-[#9ca3af] ${studyPlatform.actModule === index ? "bg-[#f9fafb] dark:bg-[#1f2937] group text-[#4f46e5] dark:text-[white]" : "hover:bg-[#f9fafb] dark:hover:bg-[#1f2937] group hover:text-[#4f46e5] dark:hover:text-[white]" }`}>
                                                 <span className="flex w-[24] h-[24] min-w-[24] min-h-[24px]">
                                                     {modulo.isOpen ? (
-                                                        <UnLockIconFill className="text-[#9ca3af] group-hover:text-[#4f46e5] dark:group-hover:text-[white]" size={24} />
+                                                        <UnLockIconFill className={`${studyPlatform.actModule === index ? "text-[white]" : "text-[#9ca3af] group-hover:text-[#4f46e5] dark:group-hover:text-[white]"}`} size={24} />
                                                     ) : (
-                                                        <LockIcon className="text-[#9ca3af] group-hover:text-[#4f46e5] dark:group-hover:text-[white]" size={24} />
+                                                        <LockIcon className={`${studyPlatform.actModule === index ? "text-[white]" : "text-[#9ca3af] group-hover:text-[#4f46e5] dark:group-hover:text-[white]"}`} size={24} />
                                                     )}
                                                 </span>
                                                 <span className="text-medium whitespace-nowrap text-ellipsis box-border list-none font-semibold overflow-hidden">
