@@ -34,7 +34,7 @@ const IntroductionLoading = () => {
 
     useEffect(() => {
         const typed = new Typed(infoEl.current, {
-            strings: ['Buscando informações...', 'Processando dados...', 'Dominando o mundo...', 'Carregando conteúdo...', 'Aguarde um momento...'],
+            strings: ['Buscando informações...', 'Processando dados...', 'Dominando o mundo...', 'Carregando conteúdo...', 'Aguarde um momento...', ''],
             typeSpeed: 50,
             showCursor: false,
             loop: true,
@@ -60,7 +60,7 @@ const IntroductionLoading = () => {
                     <span className="loader">
                         <span className="loader-inner" />
                     </span>
-                    <span ref={infoEl} className="introLoading text-[16px] text-gray-800 text-center" />
+                    <span ref={infoEl} className="introLoading text-[16px] text-gray-800 text-center min-h-[24px]" />
                 </motion.div>
             </AnimatePresence>
         </div>

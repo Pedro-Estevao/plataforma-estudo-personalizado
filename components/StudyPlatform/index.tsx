@@ -62,7 +62,7 @@ const StudyPlatformLoading = () => {
             <span className="loader">
                 <span className="loader-inner" />
             </span>
-            <span ref={studyPlatformLoadingEl} className="introLoading text-[16px] text-gray-800 text-center" />
+            <span ref={studyPlatformLoadingEl} className="introLoading text-[16px] text-gray-800 text-center min-h-[24px]" />
         </div>
     )
 };
