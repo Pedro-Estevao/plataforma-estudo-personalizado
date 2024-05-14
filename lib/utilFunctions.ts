@@ -1,5 +1,32 @@
 import { ChatHistoryType, ModuleType, PagesType, SetIntroductionType, SetStudyPlatformType, StudyPlatformType } from "@/@types/appContext";
 
+export const pageVariants = (durationStart: number, durationEnd?: number) => ({
+    initial: {
+        opacity: 0,
+        x: 0,
+        transition: {
+            duration: durationStart,
+        }
+    },
+    in: {
+        opacity: 1,
+        x: 0,
+    },
+    out: {
+        opacity: 0,
+        x: 0,
+        transition: {
+            duration: durationEnd,
+        }
+    }
+});
+
+export const pageTransition = (duration: number) => ({
+    type: 'tween',
+    ease: 'anticipate',
+    duration,
+});
+
 export const addHistoryChat = (
     history: ChatHistoryType[],
     setHistory: (history: ChatHistoryType[]) => void,

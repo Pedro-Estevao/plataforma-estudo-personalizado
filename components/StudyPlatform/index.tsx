@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useAppContext } from "@/contexts/appContext";
 import Sidebar from "../Sidebar";
 import { Navbar } from "../Navbar";
-import { addStoriesChat, generateModule, generateModules, resetContext } from "@/lib/utilFunctions";
+import { addStoriesChat, generateModule, generateModules, pageTransition, pageVariants, resetContext } from "@/lib/utilFunctions";
 import { Button } from "@nextui-org/button";
 import Typed from "typed.js";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,33 +12,6 @@ import prompts from "@/lib/prompts";
 import interactionGemini from "@/lib/geminiClient";
 import { ModuleContentType } from "@/@types/appContext";
 import { BadgeFill } from "../Icons";
-
-const pageVariants = (durationStart: number, durationEnd?: number) => ({
-    initial: {
-        opacity: 0,
-        x: 0,
-        transition: {
-            duration: durationStart,
-        }
-    },
-    in: {
-        opacity: 1,
-        x: 0,
-    },
-    out: {
-        opacity: 0,
-        x: 0,
-        transition: {
-            duration: durationEnd,
-        }
-    }
-});
-
-const pageTransition = (duration: number) => ({
-    type: 'tween',
-    ease: 'anticipate',
-    duration,
-});
 
 const StudyPlatformLoading = () => {
     const studyPlatformLoadingEl = useRef<HTMLDivElement>(null);

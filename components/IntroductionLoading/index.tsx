@@ -1,33 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from 'framer-motion';
 import Typed from "typed.js";
-
-const pageVariants = (durationStart: number, durationEnd?: number) => ({
-    initial: {
-        opacity: 0,
-        x: 0,
-        transition: {
-            duration: durationStart,
-        }
-    },
-    in: {
-        opacity: 1,
-        x: 0,
-    },
-    out: {
-        opacity: 0,
-        x: 0,
-        transition: {
-            duration: durationEnd,
-        }
-    }
-});
-
-const pageTransition = (duration: number) => ({
-    type: 'tween',
-    ease: 'anticipate',
-    duration,
-});
+import { pageTransition, pageVariants } from "@/lib/utilFunctions";
 
 const IntroductionLoading = () => {
     const infoEl = useRef<HTMLDivElement>(null);

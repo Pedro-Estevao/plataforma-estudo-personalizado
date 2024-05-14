@@ -10,33 +10,7 @@ import Image from "next/image";
 import { Radio, RadioGroup } from "@nextui-org/radio";
 import { cn } from "@nextui-org/system";
 import { Code } from "@nextui-org/code";
-
-const pageVariants = (durationStart: number, durationEnd?: number) => ({
-    initial: {
-        opacity: 0,
-        x: 0,
-        transition: {
-            duration: durationStart,
-        }
-    },
-    in: {
-        opacity: 1,
-        x: 0,
-    },
-    out: {
-        opacity: 0,
-        x: 0,
-        transition: {
-            duration: durationEnd,
-        }
-    }
-});
-
-const pageTransition = (duration: number) => ({
-    type: 'tween',
-    ease: 'anticipate',
-    duration,
-});
+import { pageTransition, pageVariants } from "@/lib/utilFunctions";
 
 const CustomRadio = (props: any) => {
     const { children, ...otherProps } = props;
