@@ -86,13 +86,43 @@
     direction: ltr;
 }
 
-.studyPlatform-content div > *:only-child:not(:has(p)):is(pre):has(code) code {
+.studyPlatform-content div > *:only-child:not(:has(p)):is(pre):has(code) code,
+.studyPlatform-content div > *:only-child:not(:has(p)):is(code):has(pre) pre {
     background-color: transparent;
     padding: 0;
 }
 
 .studyPlatform-content div > ul li > *:first-child:is(code) {
     margin-bottom: 5px;
+}
+
+.studyPlatform-content table {
+    border-collapse: collapse;
+    width: 100%;
+    border-spacing: 0;
+    display: table;
+    border: 1px solid #ccc;
+}
+
+.studyPlatform-content table tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.studyPlatform-content table tr td,
+.studyPlatform-content table tr th {
+    display: table-cell;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    vertical-align: top;
+}
+
+.studyPlatform-content div:has(table) {
+    overflow-x: auto;
+}
+
+.studyPlatform-content div:has(table) table {
+    min-width: 750px;
 }
 
 [data-overlay-container="true"] {
