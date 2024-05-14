@@ -200,124 +200,115 @@ const StudyPlatform = () => {
                     className="relative z-50"
                 >
                     <Sidebar />
-                </motion.div>
-
-                <div className="min-h-[100lvh] lg:pl-[288px]">
-                    <motion.div
-                        key="study-platform-navbar"
-                        initial="initial"
-                        animate="in"
-                        exit="out"
-                        variants={pageVariants(2)}
-                        transition={pageTransition(2)}
-                    >
+                
+                    <div className="min-h-[100lvh] lg:pl-[288px]">
                         <Navbar />
-                    </motion.div>
 
-                    <motion.div
-                        key="study-platform-content"
-                        initial="initial"
-                        animate="in"
-                        exit="out"
-                        variants={pageVariants(2, 1)}
-                        transition={pageTransition(2)}
-                        className="relative flex flex-col h-full min-h-[calc(100lvh-65px)]"
-                    >
-                        {studyPlatform.isLoading ? (
-                            <StudyPlatformLoading />
-                        ) : (studyPlatform.isGettingModels ? (
-                            <StudyPlatformInitial handleGetModule={handleGetModule} />
-                        ) : (
-                            <main className={`flex flex-col flex-grow flex-shrink-0 gap-y-8 h-full py-10 z-10`}>
-                                <div className="studyPlatform-content flex flex-col flex-grow flex-shrink-0 px-4 sm:px-6 lg:px-8">
-                                    {studyPlatform.modulos[studyPlatform.actModule] && studyPlatform.modulos[studyPlatform.actModule].content && studyPlatform.modulos[studyPlatform.actModule].content.map((item, index) => {
-                                        const key = `modulo-${studyPlatform.actModule}-content-${index}`;
-                                        const htmlContent = item.html;
-                                        const hasTags = ['<!DOCTYPE>', '<!DOCTYPE html>', 'html', 'thead', 'body'].every(tag => htmlContent.includes(tag));
+                        <motion.div
+                            key="study-platform-content"
+                            initial="initial"
+                            animate="in"
+                            exit="out"
+                            variants={pageVariants(2, 1)}
+                            transition={pageTransition(2)}
+                            className="relative flex flex-col h-full min-h-[calc(100lvh-65px)]"
+                        >
+                            {studyPlatform.isLoading ? (
+                                <StudyPlatformLoading />
+                            ) : (studyPlatform.isGettingModels ? (
+                                <StudyPlatformInitial handleGetModule={handleGetModule} />
+                            ) : (
+                                <main className={`flex flex-col flex-grow flex-shrink-0 gap-y-8 h-full py-10 z-10`}>
+                                    <div className="studyPlatform-content flex flex-col flex-grow flex-shrink-0 px-4 sm:px-6 lg:px-8">
+                                        {studyPlatform.modulos[studyPlatform.actModule] && studyPlatform.modulos[studyPlatform.actModule].content && studyPlatform.modulos[studyPlatform.actModule].content.map((item, index) => {
+                                            const key = `modulo-${studyPlatform.actModule}-content-${index}`;
+                                            const htmlContent = item.html;
+                                            const hasTags = ['<!DOCTYPE>', '<!DOCTYPE html>', 'html', 'thead', 'body'].every(tag => htmlContent.includes(tag));
 
-                                        if (hasTags) {
-                                            return (
-                                                <iframe
-                                                    key={key}
-                                                    srcDoc={htmlContent}
-                                                    title={key}
-                                                    className="mb-8"
-                                                />
-                                            );
-                                        } else {
-                                            return (
-                                                <div
-                                                    key={key}
-                                                    className="mb-8"
-                                                    dangerouslySetInnerHTML={{ __html: htmlContent }}
-                                                />
-                                            );
-                                        }
-                                    })}
+                                            if (hasTags) {
+                                                return (
+                                                    <iframe
+                                                        key={key}
+                                                        srcDoc={htmlContent}
+                                                        title={key}
+                                                        className="mb-8"
+                                                    />
+                                                );
+                                            } else {
+                                                return (
+                                                    <div
+                                                        key={key}
+                                                        className="mb-8"
+                                                        dangerouslySetInnerHTML={{ __html: htmlContent }}
+                                                    />
+                                                );
+                                            }
+                                        })}
 
-                                </div>
+                                    </div>
 
-                                <div className="flex items-center justify-between gap-3 w-full px-12 max-450:flex-col">
-                                    <motion.div
-                                        initial="initial"
-                                        animate="in"
-                                        exit="out"
-                                        variants={pageVariants(2)}
-                                        transition={pageTransition(2)}
-                                    >
-                                        <Button
-                                            className={`bg-[#68a2fe] w-[143px] text-white border-none outline-none rounded-[20px] hover:bg-[#076dff] ${modulo === 0 ? "invisible select-none" : "visible"}`}
-                                            onClick={() => {
-                                                setStudyPlatform(prevState => ({
-                                                    ...prevState,
-                                                    actModule: prevState.actModule - 1,
-                                                    isGettingModulo: true,
-                                                    isLoading: true,
-                                                }));
-                                            }}
+                                    <div className="flex items-center justify-between gap-3 w-full px-12 max-450:flex-col max-450:gap-y-6">
+                                        <motion.div
+                                            initial="initial"
+                                            animate="in"
+                                            exit="out"
+                                            variants={pageVariants(2)}
+                                            transition={pageTransition(2)}
                                         >
-                                            Anterior
-                                        </Button>
-                                    </motion.div>
+                                            <Button
+                                                className={`bg-[#68a2fe] w-[143px] text-white border-none outline-none rounded-[20px] hover:bg-[#076dff] ${modulo === 0 ? "invisible select-none" : "visible"}`}
+                                                onClick={() => {
+                                                    setStudyPlatform(prevState => ({
+                                                        ...prevState,
+                                                        actModule: prevState.actModule - 1,
+                                                        isGettingModulo: true,
+                                                        isLoading: true,
+                                                    }));
+                                                }}
+                                            >
+                                                Anterior
+                                            </Button>
+                                        </motion.div>
 
-                                    <motion.div
-                                        initial="initial"
-                                        animate="in"
-                                        exit="out"
-                                        variants={pageVariants(2)}
-                                        transition={pageTransition(2)}
-                                    >
-                                        <Button
-                                            className={`bg-[#68a2fe] min-w-[143px] text-white border-none outline-none rounded-[20px] hover:bg-[#076dff] transition-all`}
-                                            isDisabled={!timeModule}
-                                            onClick={() => {
-                                                if (modulo === (studyPlatform.modulos.length - 1)) {
-                                                    resetContext(setIntroduction, setStudyPlatform);
-                                                    return;
-                                                }
-
-                                                setStudyPlatform(prevState => ({
-                                                    ...prevState,
-                                                    actModule: prevState.actModule + 1,
-                                                    isGettingModulo: true,
-                                                    isLoading: true,
-                                                }));
-                                            }}
+                                        <motion.div
+                                            initial="initial"
+                                            animate="in"
+                                            exit="out"
+                                            variants={pageVariants(2)}
+                                            transition={pageTransition(2)}
                                         >
-                                            {modulo === (studyPlatform.modulos.length - 1) ? (
-                                                <>
-                                                    <BadgeFill className="transition-all" size={24} />
-                                                    Próximo Tema
-                                                </>
-                                            ) : "Próximo"}
-                                        </Button>
-                                    </motion.div>
-                                </div>
-                            </main>
-                        ))}
+                                            <Button
+                                                className={`bg-[#68a2fe] min-w-[143px] text-white border-none outline-none rounded-[20px] hover:bg-[#076dff] transition-all`}
+                                                isDisabled={!timeModule}
+                                                onClick={() => {
+                                                    if (modulo === (studyPlatform.modulos.length - 1)) {
+                                                        resetContext(setIntroduction, setStudyPlatform);
+                                                        return;
+                                                    }
 
-                    </motion.div>
-                </div>
+                                                    setStudyPlatform(prevState => ({
+                                                        ...prevState,
+                                                        actModule: prevState.actModule + 1,
+                                                        isGettingModulo: true,
+                                                        isLoading: true,
+                                                    }));
+                                                }}
+                                            >
+                                                {modulo === (studyPlatform.modulos.length - 1) ? (
+                                                    <>
+                                                        <BadgeFill className="transition-all" size={24} />
+                                                        Próximo Tema
+                                                    </>
+                                                ) : "Próximo"}
+                                            </Button>
+                                        </motion.div>
+                                    </div>
+                                </main>
+                            ))}
+
+                        </motion.div>
+                    </div>
+                </motion.div>
             </AnimatePresence>
         </div>
     );
