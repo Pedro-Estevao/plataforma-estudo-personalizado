@@ -26,6 +26,7 @@ const config: Config = {
 			xl: '1200px',
 			xxl: '1400px',
 			'max-xs': { max: '374px' },
+			'max-450': { max: '450px'},
 			'max-sm': { max: '575px' },
 			'max-md': { max: '767px' },
 			'max-lg': { max: '991px' },

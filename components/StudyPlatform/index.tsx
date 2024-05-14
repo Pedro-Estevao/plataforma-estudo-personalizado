@@ -257,7 +257,7 @@ const StudyPlatform = () => {
 
                                 </div>
 
-                                <div className="flex items-center justify-between gap-3 w-full px-12">
+                                <div className="flex items-center justify-between gap-3 w-full px-12 max-450:flex-col">
                                     <motion.div
                                         initial="initial"
                                         animate="in"
