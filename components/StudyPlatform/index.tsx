@@ -48,7 +48,7 @@ const StudyPlatformInitial = ({ handleGetModule }: { handleGetModule: () => Prom
             <h2 className="text-[65px] text-[#438dff] font-semibold uppercase text-center">START!</h2>
 
             <div className="text-[16px] text-gray-800 dark:text-[#9ca3af] font-semibold text-center">
-                Vamos começar! Aperte o botão abaixo para acesar o primeiro módulo.
+                Vamos começar! Aperte o botão abaixo para acessar o primeiro módulo.
             </div>
 
             <Button
